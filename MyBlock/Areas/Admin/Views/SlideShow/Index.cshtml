@@ -1,0 +1,91 @@
+﻿@model List<MyBlock.Models.SlideShow>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    a:hover {
+        color: #ff0000;
+    }
+
+    a.add {
+        color: #ffffff;
+        padding: 10px;
+        background: #0094ff;
+    }
+
+        a.add:hover {
+            opacity: 0.7;
+        }
+</style>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>SlideShow List</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">SlideShow</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="add" asp-area="admin" asp-controller="slideshow" asp-action="add">Add New Slide</a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th>UptoSale</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var slideshow in Model)
+                                    {
+                                        <tr>
+                                            <td>@slideshow.Id</td>
+                                            <td style="font-weight:bold;"><img src="~/slideshows/@slideshow.Name" width="120" /></td>
+                                            <td>@slideshow.Title</td>
+                                            <td>@slideshow.UptoSale</td>
+                                            <td>@slideshow.Description</td>
+                                            <td>@(slideshow.Status ? "show" : "hide") </td>
+                                            <td>
+                                                <a asp-area="admin" asp-controller="slideshow" asp-action="edit" asp-route-id="@slideshow.Id">
+                                                    Edit
+                                                </a><span> | </span>
+
+                                                <a asp-area="admin" asp-controller="slideshow" asp-action="delete" asp-route-id="@slideshow.Id"
+                                                   onclick="return confirm('Are you sure?')">Delete</a><span> | </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

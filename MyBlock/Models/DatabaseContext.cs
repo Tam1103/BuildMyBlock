@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace TechWebsite.Models
+namespace MyBlock.Models
 {
     public class DatabaseContext : DbContext
     {
@@ -33,11 +29,9 @@ namespace TechWebsite.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
-
-            //account
             modelBuilder.Entity<Account>(entity =>
             {
+                //account
                 entity.Property(e => e.Email)
                  .HasMaxLength(250)
                  .IsUnicode(false);

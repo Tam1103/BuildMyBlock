@@ -1,7 +1,7 @@
-﻿@*@using System.Security.Claims
+﻿@using System.Security.Claims
 @{ 
     var user = User.FindFirst(ClaimTypes.Name);
-}*@
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -197,7 +197,7 @@
                         <img src="https://w7.pngwing.com/pngs/104/119/png-transparent-orange-and-white-logo-computer-icons-icon-design-person-person-miscellaneous-logo-silhouette.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"><span style="color:cornflowerblue;font-weight:bold">Hi :) </span><span class="brand-text font-weight-light"> Hi </span></a>
+                        <a href="#" class="d-block"><span style="color:cornflowerblue;font-weight:bold">Hi :) </span><span class="brand-text font-weight-light">@user.Value</span></a>
                     </div>
                 </div>
 

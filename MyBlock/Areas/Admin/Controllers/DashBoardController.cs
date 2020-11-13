@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TechWebsite.Areas.Admin.Controllers
+namespace MyBlock.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Area("admin")]
     [Route("admin/dashboard")]
-
     public class DashBoardController : Controller
-    { 
+    {
         [Route("")]
         [Route("index")]
         public IActionResult Index()
@@ -17,7 +16,7 @@ namespace TechWebsite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("calendar")] 
+        [Route("calendar")]
         public IActionResult Calendar()
         {
             return View();
