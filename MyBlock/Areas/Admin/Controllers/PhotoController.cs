@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +26,7 @@ namespace MyBlock.Areas.Admin.Controllers
         public IActionResult Index(int id)
         {
             var photos = db.Photos.Where(p => p.ProductId == id).ToList();
+            ViewBag.product = id;
             return View("Index", photos);
         }
 
@@ -39,6 +38,7 @@ namespace MyBlock.Areas.Admin.Controllers
             {
                 ProductId = id
             };
+         
             return View("Add", photo);
         }
 
