@@ -1,0 +1,133 @@
+﻿@model List<MyBlock.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    a:hover {
+        color: #ff0000;
+    }
+
+    a.add {
+        color: #ffffff;
+        padding: 10px;
+        background: #0094ff;
+    }
+
+        a.add:hover {
+            opacity: 0.7;
+        }
+</style>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Product List</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Products</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="add" asp-area="admin" asp-controller="product" asp-action="add">Add New Product</a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Photo</th>
+                                        <th>Price</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in Model)
+                                    {
+                                        var photo = product.Photos.LastOrDefault(s => s.Featured);
+
+                                        <tr>
+                                            <td>@product.Id</td>
+                                            <td style="font-weight:bold;">@product.Name</td>
+                                            @if (photo != null)
+                                            {
+                                                <td><img src="~/products/@photo.Name" width="120" /></td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                                <td>@String.Format("{0:#,###}", product.Price)<span class="input-group-addon">$</span></td>
+                                            <td width="120">@product.Description</td>
+                                            <td>@product.Category.Name</td>
+                                            <td>@(product.Status ? "show" : "hide") </td>
+
+                                            <td>
+                                                <a asp-area="admin" asp-controller="product" asp-action="edit" asp-route-id="@product.Id">
+                                                    Edit
+                                                </a><span> | </span>
+
+                                                <a asp-area="admin" asp-controller="product" asp-action="delete" asp-route-id="@product.Id"
+                                                   onclick="return confirm('Are you sure?')">Delete</a><span> | </span>
+
+                                                <a asp-area="admin" asp-controller="photo" asp-action="index" asp-route-id="@product.Id">
+                                                    Photo List
+                                                </a><span> | </span>
+
+                                                <a asp-area="admin" asp-controller="photo" asp-action="add" asp-route-id="@product.Id">
+                                                    Add photo
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                    </div><div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                            <ul class="pagination">
+                                <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                <li class="paginate_button page-item active">
+                                    <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                </li>
+                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                <li class="paginate_button page-item next" id="example2_next">
+                                    <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </section>
+</div>

@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model MyBlock.Models.Photo
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Add Photo</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">List Photo</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <form asp-area="admin" asp-controller="photo" asp-action="add" method="post" role="form" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="exampleInputFile" name="fileUpload" accept="image/*" required="required">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="Status" asp-for="Status">
+                            <label class="form-check-label" for="exampleCheck1">Status</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="Status" asp-for="Featured">
+                            <label class="form-check-label" for="exampleCheck1">Featured</label>
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                    <input type="hidden" asp-for="ProductId" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
