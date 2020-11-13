@@ -127,10 +127,25 @@ namespace MyBlock.Controllers
             return View("Profile");
         }
 
-        //[Route("accessdenied")]
-        //public IActionResult AccessDenied()
-        //{
-        //    return View("AccessDenied");
-        //}
+        [Route("accessdenied")]
+        public IActionResult AccessDenied()
+        {
+            return View("AccessDenied");
+        }
+
+
+        [HttpGet]
+        [Route("forgotpassword")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("forgotpassword")]
+        public IActionResult ForgotPassword(Account account)
+        {
+            return RedirectToAction("login", "customer");
+        }
     }
 }
