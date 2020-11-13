@@ -34,13 +34,18 @@ namespace MyBlock
                 options.AccessDeniedPath = "/admin/login/accessdenied";
             });
         }
-      
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/home/error");
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -50,18 +55,16 @@ namespace MyBlock
             app.UseAuthentication();
             app.UseAuthorization();
 
-              app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "Areas",
-                    pattern: "{controller=Admin}/{action=Index}/{id?}");
-            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                            name: "MyArea",
+                            pattern: "{area:exists}/{controller=dashboard}/{action=index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=home}/{action=index}/{id?}");
             });
 
             app.Run(async context =>

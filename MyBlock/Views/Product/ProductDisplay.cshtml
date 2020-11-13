@@ -1,0 +1,74 @@
+﻿
+@model IPagedList<MyBlock.Models.Product>
+
+@{
+    ViewData["Title"] = "ProductDisplay";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+
+<style>
+    .pagination {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+        .pagination li {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0px 10px;
+        }    
+        .pagination a{
+        color: #808080;
+    }
+    .PagedList-skipToNext a, .PagedList-skipToPrevious a{
+        font-size: 30px;
+        color: darkred;
+    }
+</style>
+
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>
+                @ViewBag.nameCategory
+            </h3>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <h1 style="text-align:center;color:darkred;font-size:30px;font-weight:bold">@ViewBag.notification</h1>
+    <div class="section group">
+        @foreach (var product in Model)
+        {
+            var photo = product.Photos.FirstOrDefault(p => p.Featured);
+            <div class="grid_1_of_4 images_1_of_4">
+                @if (photo != null)
+                {
+                    <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"><img src="~/products/@photo.Name" alt="" /></a>
+                }
+                else
+                {
+                    <a href="preview.html"><img src="~/products/default.png" alt="featured_image_none" /></a>
+                }
+                <h2>@product.Description</h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@String.Format("{0:#,###}", product.Price)<span class="input-group-addon">$</span></span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="preview.html">Add to Cart</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="pagination">
+        @Html.PagedListPager((IPagedList)Model,page => Url.Action("productdisplay", "product", new
+   { page = page, id = ViewBag.category.Id}))
+    </div>
+</div>

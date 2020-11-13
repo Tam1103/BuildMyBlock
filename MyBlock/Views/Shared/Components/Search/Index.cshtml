@@ -1,0 +1,37 @@
+﻿@model List<MyBlock.Models.Category>
+@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<div class="search_box">
+    <div class="form-group">
+        <select class="select2" style="width: 100%; padding:3px; border-radius:4px; border:0; outline:none
+    ;text-transform:uppercase;color:#9C9C9C;font-family: 'ambleregular';">
+
+            @foreach (var category in Model)
+            {
+                @if (category.InverseParents != null)
+                {
+                    <option selected>@category.Name</option>
+                }
+
+
+                @foreach (var subcategory in category.InverseParents)
+                {
+                    @if (subcategory.Status)
+                    {
+                    <option selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @subcategory.Name</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+</div>
+<div style="padding:10px">
+    <button type="submit" class="btn btn-lg btn-default" style="margin-left:10px; padding:3px 9px;">
+        <i class="fa fa-search"></i>
+    </button>
+</div>

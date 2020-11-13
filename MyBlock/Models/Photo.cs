@@ -16,7 +16,6 @@ namespace MyBlock.Models
         public bool Status { get; set; }
         public bool Featured { get; set; }
         public int ProductId { get; set; }
-
         public virtual Product Product { get; set; }
     }
 }

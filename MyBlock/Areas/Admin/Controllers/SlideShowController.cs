@@ -16,7 +16,7 @@ namespace MyBlock.Areas.Admin.Controllers
     [Route("admin/slideshow")]
     public class SlideShowController : Controller
     {
-        private readonly DatabaseContext db;
+        private readonly DatabaseContext db ;
         private IHostingEnvironment ihostingEnvironment;
 
         public SlideShowController(DatabaseContext _db, IHostingEnvironment _ihostingEnvironment)
