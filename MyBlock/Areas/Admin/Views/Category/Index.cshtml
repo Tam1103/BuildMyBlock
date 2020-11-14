@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    a:hover {
+        color: #ff0000;
+    }
+    a.add {
+        color: #ffffff;
+        padding: 10px;
+        background: #0094ff;
+    }
+    a.add:hover{
+        opacity:0.7;
+    }
+</style>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Datagories List</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Datagories</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                         <a class="add" asp-area="admin" asp-controller="category" asp-action="add">Add New Category</a>
+                         <span> <a class="add" asp-area="admin" asp-controller="category" asp-action="addnewsubcategory">Add New Sub Category</a></span>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Parent</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var category in ViewBag.categories)
+                                    {
+                                        <tr>
+                                            <td>@category.Id</td>
+                                            <td style="font-weight:bold;">@category.Name</td>
+                                            <td>@(category.Status ? "show" : "hide") </td>
+                                            <td>@(category.Parent == null ? "" : category.Parent.Name) </td>
+                                            <td>
+                                                <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@category.Id">
+                                                    Edit
+                                                </a><span> | </span>
+                                                @if (category.InverseParents != null && category.InverseParents.Count == 0)
+                                                {
+                                                    <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@category.Id"
+                                                       onclick="return confirm('Are you sure?')">Delete</a><span> | </span>
+                                                }
+                                                <a asp-area="admin" asp-controller="category" asp-action="addsubcategory" asp-route-id="@category.Id">
+                                                    Add Sub Category
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        if (category.InverseParents != null && category.InverseParents.Count != 0)
+                                        {
+                                            foreach (var subCategory in category.InverseParents)
+                                            {
+                                                <tr>
+                                                    <td>@subCategory.Id</td>
+                                                    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @subCategory.Name</td>
+                                                    <td>@(subCategory.Status ? "show" : "hide") </td>
+                                                    <td>@subCategory.Parent.Name</td>
+                                                    <td>
+                                                        <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@subCategory.Id">
+                                                            Edit
+                                                        </a> |
+                                                        <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@subCategory.Id"
+                                                           onclick="return confirm('Are you sure?')">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

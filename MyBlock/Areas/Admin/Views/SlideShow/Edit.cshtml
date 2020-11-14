@@ -1,0 +1,72 @@
+﻿@model MyBlock.Models.SlideShow 
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit SlideShow</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">SlideShow List</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <form asp-area="admin" asp-controller="slideshow" asp-action="edit" method="post" role="form" enctype="multipart/form-data">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="exampleInputFile" name="photo" accept="image/*">
+                                    <td style="font-weight:bold;"><img src="~/slideshows/@Model.Name" width="120" /></td>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" asp-for="Title" placeholder=". . .">
+                        </div>
+
+                        <div class="form-group">
+                            <label>UptoSale</label>
+                            <input type="text" class="form-control" asp-for="UptoSale" placeholder=". . .">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Textarea</label>
+                            <textarea class="form-control" rows="3" asp-for="Description" placeholder=". . ."></textarea>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="Status" asp-for="Status">
+                            <label class="form-check-label" for="exampleCheck1">Status</label>
+                            <input type="hidden" asp-for="Id" />
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model List<MyBlock.Models.Category>
+@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<style>
+    li.dropdown-btn {
+        cursor: context-menu;
+    }
+
+    li.dropdown-btn a {
+        color: #000000;
+    }
+
+    .categories{
+        border-bottom: 1px solid #808080;
+        padding-bottom:10px;
+    }
+</style>
+
+<div class="header_bottom_left">
+    <div class="categories">
+        <ul>
+            <h3>Categories</h3>
+            @foreach (var category in Model)
+            {
+                <li class="dropdown-btn"><a>@category.Name</a></li>
+
+                @if (category.InverseParents != null && category.InverseParents.Count() != 0)
+                {
+                    <div class="dropdown-container" style="display:none">
+
+                        @foreach (var subCagegory in category.InverseParents)
+                        {
+                            @if (subCagegory.Status)
+                            {
+                                <ul>
+                                    <li><a asp-controller="product" asp-action="productdisplay" asp-route-id="@subCagegory.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @subCagegory.Name</a></li>
+                                </ul>
+                            }
+                        }
+                    </div>
+                }
+            }
+        </ul>
+    </div>
+</div>
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
