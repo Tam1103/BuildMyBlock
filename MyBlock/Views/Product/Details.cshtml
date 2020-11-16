@@ -35,7 +35,7 @@
     .header_slide {
         display: none;
     }
-    .subscribe, .subscribe input, .subscribe button, .community-poll, .community-poll p{
+    .subscribe, .subscribe input, .subscribe button, .community-poll, .community-poll p, .available, .available option{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
 </style>
@@ -134,7 +134,6 @@
                     <div id="horizontalTab">
                         <ul class="resp-tabs-list">
                             <li>Product Details</li>
-                            <li>product Tags</li>
                             <li>Product Reviews</li>
                             <div class="clear"></div>
                         </ul>
@@ -142,14 +141,7 @@
                             <div class="product-desc">
                                 <p>@Model.Details</p>
                             </div>
-                            <div class="product-tags">
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                <h4>Add Your Tags:</h4>
-                                <div class="input-box">
-                                    <input type="text" value="">
-                                </div>
-                                <div class="button"><span><a href="#">Add Tags</a></span></div>
-                            </div>
+
                             <div class="review">
                                 <h4>Lorem ipsum Review by <a href="#">Finibus Bonorum</a></h4>
                                 <ul>
@@ -157,7 +149,7 @@
                                     <li>Value :<a href="#"><img src="~/User/images/value-rating.png" alt="" /></a></li>
                                     <li>Quality :<a href="#"><img src="~/User/images/quality-rating.png" alt="" /></a></li>
                                 </ul>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                                <p>@Model.Details</p>
                                 <div class="your-review">
                                     <h3>How Do You Rate This Product?</h3>
                                     <p>Write Your Own Review?</p>

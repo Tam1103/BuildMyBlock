@@ -31,12 +31,12 @@ namespace MyBlock.Controllers
             var category = db.Categories.Find(id);
             ViewBag.category = category;
             ViewBag.nameCategory = category.Name;
-            var product = category.Products.Where(s => s.Status).ToList().ToPagedList(pageNumber, 1);
+            var product = category.Products.Where(s => s.Status).ToList();
             if (!product.Any())
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            return View("ProductDisplay",product);
+            return View("ProductDisplay",product.ToPagedList(pageNumber, 1));
         }
         
         [HttpGet]

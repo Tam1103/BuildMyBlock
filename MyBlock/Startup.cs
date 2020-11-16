@@ -22,6 +22,8 @@ namespace MyBlock
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession();
             services.AddControllersWithViews();
             services.AddDbContext<DatabaseContext>(options =>
@@ -33,6 +35,7 @@ namespace MyBlock
                 options.LogoutPath = "/admin/login/signout";
                 options.AccessDeniedPath = "/admin/login/accessdenied";
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +57,6 @@ namespace MyBlock
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {
