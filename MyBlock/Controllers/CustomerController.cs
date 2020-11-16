@@ -1,10 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyBlock.Models;
-using MyBlock.Models.ViewModel;
 using MyBlock.Security;
 
 namespace MyBlock.Controllers
@@ -136,11 +133,19 @@ namespace MyBlock.Controllers
             return View("AccessDenied");
         }
 
+
         [HttpGet]
         [Route("forgotpassword")]
         public IActionResult ForgotPassword()
         {
-            return View("ForgotPassword");
+            return View();
+        }
+
+        [HttpGet]
+        [Route("forgotpassword")]
+        public IActionResult ForgotPassword(Account account)
+        {
+            return RedirectToAction("login", "customer");
         }
     }
 }
