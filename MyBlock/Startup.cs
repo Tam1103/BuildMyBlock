@@ -26,8 +26,9 @@ namespace MyBlock
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession();
             services.AddControllersWithViews();
+
             services.AddDbContext<DatabaseContext>(options =>
-   options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("TechDatabase")));
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("TechDatabase")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
@@ -35,7 +36,7 @@ namespace MyBlock
                 options.LogoutPath = "/admin/login/signout";
                 options.AccessDeniedPath = "/admin/login/accessdenied";
             });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,14 +48,16 @@ namespace MyBlock
             }
             else
             {
-                app.UseExceptionHandler("/home/error");
+                app.UseExceptionHandler("home/error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            
             app.UseSession();
             app.UseRouting();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -62,7 +65,7 @@ namespace MyBlock
             {
                 endpoints.MapControllerRoute(
                             name: "MyArea",
-                            pattern: "{area:exists}/{controller=dashboard}/{action=index}/{id?}");
+                            pattern: "{area:admin}/{controller=dashboard}/{action=index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
