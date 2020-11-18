@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MyBlock.Models;
 using X.PagedList;
@@ -36,7 +33,7 @@ namespace MyBlock.Controllers
             {
                 ViewBag.notification = "Sorry we are updating, Thanks";
             }
-            return View("ProductDisplay",product.ToPagedList(pageNumber, 1));
+            return View("ProductDisplay",product.ToPagedList(pageNumber, 4));
         }
         
         [HttpGet]

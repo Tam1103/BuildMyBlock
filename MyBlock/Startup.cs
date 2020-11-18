@@ -35,7 +35,11 @@ namespace MyBlock
                 options.LogoutPath = "/admin/login/signout";
                 options.AccessDeniedPath = "/admin/login/accessdenied";
             });
-            
+
+            var emailConfig = Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

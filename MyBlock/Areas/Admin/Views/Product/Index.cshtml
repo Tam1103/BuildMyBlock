@@ -65,39 +65,39 @@
                                     {
                                         var photo = product.Photos.LastOrDefault(s => s.Featured);
 
-                                        <tr>
-                                            <td>@product.Id</td>
-                                            <td style="font-weight:bold;">@product.Name</td>
-                                            @if (photo != null)
-                                            {
-                                                <td><img src="~/products/@photo.Name" width="120" /></td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                                <td>@String.Format("{0:#,###}", product.Price)<span class="input-group-addon">$</span></td>
-                                            <td width="120">@product.Description</td>
-                                            <td>@product.Category.Name</td>
-                                            <td>@(product.Status ? "show" : "hide") </td>
+                                    <tr>
+                                        <td>@product.Id</td>
+                                        <td style="font-weight:bold;">@product.Name</td>
+                                        @if (photo != null)
+                                        {
+                                            <td><img src="~/products/@photo.Name" width="120" /></td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td>@String.Format("{0:#,###}", product.Price)<span class="input-group-addon">$</span></td>
+                                        <td width="120">@product.Description</td>
+                                        <td>@product.Category.Name</td>
+                                        <td>@(product.Status ? "show" : "hide") </td>
+                                        <td>@(product.Featured ? "show" : "hide") </td>
+                                        <td>
+                                            <a asp-area="admin" asp-controller="product" asp-action="edit" asp-route-id="@product.Id">
+                                                Edit
+                                            </a><span> | </span>
 
-                                            <td>
-                                                <a asp-area="admin" asp-controller="product" asp-action="edit" asp-route-id="@product.Id">
-                                                    Edit
-                                                </a><span> | </span>
+                                            <a asp-area="admin" asp-controller="product" asp-action="delete" asp-route-id="@product.Id"
+                                               onclick="return confirm('Are you sure?')">Delete</a><span> | </span>
 
-                                                <a asp-area="admin" asp-controller="product" asp-action="delete" asp-route-id="@product.Id"
-                                                   onclick="return confirm('Are you sure?')">Delete</a><span> | </span>
+                                            <a asp-area="admin" asp-controller="photo" asp-action="index" asp-route-id="@product.Id">
+                                                Photo List
+                                            </a><span> | </span>
 
-                                                <a asp-area="admin" asp-controller="photo" asp-action="index" asp-route-id="@product.Id">
-                                                    Photo List
-                                                </a><span> | </span>
-
-                                                <a asp-area="admin" asp-controller="photo" asp-action="add" asp-route-id="@product.Id">
-                                                    Add photo
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <a asp-area="admin" asp-controller="photo" asp-action="add" asp-route-id="@product.Id">
+                                                Add photo
+                                            </a>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

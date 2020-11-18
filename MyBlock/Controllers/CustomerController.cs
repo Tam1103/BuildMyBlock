@@ -67,14 +67,19 @@ namespace MyBlock.Controllers
         [Route("register")]
         public IActionResult Register()
         {
-            var account = new Account();
-            return View("Register", account);
+            return View("Register");
         }
 
         [HttpPost]
         [Route("register")]
         public IActionResult Regester(Account account)
         {
+            var eaccount = db.Accounts.All(a => a.Email != account.Email);
+            if(!eaccount)
+            {
+                ViewBag.notice = "your email registered";
+                return View("Register");
+            }
             account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
             account.Status = true;
             db.Accounts.Add(account);
@@ -135,17 +140,50 @@ namespace MyBlock.Controllers
 
 
         [HttpGet]
-        [Route("forgotpassword")]
-        public IActionResult ForgotPassword()
+        [Route("resetpassword/{id}")]
+        public IActionResult ResetPassword(int id)
         {
-            return View();
+            var account = db.Accounts.Find(id);
+            return View("ResetPassword",account);
+        }
+
+        [HttpPost]
+        [Route("resetpassword/{id}")]
+        public IActionResult ResetPassword(int id,Account account)
+        {
+            var currentAccount = db.Accounts.Find(id);
+            if (!string.IsNullOrEmpty(account.Password))
+            {
+                currentAccount.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
+            }
+            ViewBag.msg = "Reset password successful";
+
+            db.SaveChanges();
+            return View("ResetPassword");
         }
 
         [HttpGet]
         [Route("forgotpassword")]
+        public IActionResult ForgotPassword()
+        {
+            var account = new Account();
+            return View("ForgotPassword",account);
+        }
+
+        [HttpPost]
+        [Route("forgotpassword")]
         public IActionResult ForgotPassword(Account account)
         {
-            return RedirectToAction("login", "customer");
+            var currentAccount = db.Accounts.FirstOrDefault(a => a.Email == account.Email);
+            if (currentAccount == null)
+            {
+                ViewBag.error = "Invalid Account";
+                return View("forgotpassword");
+            }
+            else
+            {
+                return RedirectToAction("resetpassword", "customer", new { id = currentAccount.Id});
+            }
         }
     }
 }
